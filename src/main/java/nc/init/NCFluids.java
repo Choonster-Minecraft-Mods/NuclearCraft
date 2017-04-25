@@ -1,7 +1,8 @@
 package nc.init;
 
 import nc.Global;
-import nc.block.fluid.BlockFluidBase;
+import nc.NuclearCraft;
+import nc.block.fluid.BlockFluid;
 import nc.block.fluid.BlockFluidGas;
 import nc.block.fluid.BlockFluidPlasma;
 import nc.block.fluid.BlockFluidSteam;
@@ -20,31 +21,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class NCFluids {
 	
 	public static Fluid oxygen;
-	public static BlockFluidBase block_oxygen;
+	public static BlockFluid block_oxygen;
 	
 	public static Fluid hydrogen;
-	public static BlockFluidBase block_hydrogen;
+	public static BlockFluid block_hydrogen;
 	
 	public static Fluid deuterium;
-	public static BlockFluidBase block_deuterium;
+	public static BlockFluid block_deuterium;
 	
 	public static Fluid tritium;
-	public static BlockFluidBase block_tritium;
+	public static BlockFluid block_tritium;
 	
 	public static Fluid helium3;
-	public static BlockFluidBase block_helium3;
+	public static BlockFluid block_helium3;
 	
 	public static Fluid helium;
-	public static BlockFluidBase block_helium;
+	public static BlockFluid block_helium;
 	
 	public static Fluid steam;
-	public static BlockFluidBase block_steam;
+	public static BlockFluid block_steam;
 	
 	public static Fluid liquid_helium;
-	public static BlockFluidBase block_liquid_helium;
+	public static BlockFluid block_liquid_helium;
 	
 	public static Fluid plasma;
-	public static BlockFluidBase block_plasma;
+	public static BlockFluid block_plasma;
 	
 	public static void init() {
 		oxygen = new FluidGas("oxygen");
@@ -104,10 +105,12 @@ public class NCFluids {
 		registerBlock(block_plasma);
 	}
 	
-	public static void registerBlock(Block block) {
+	public static void registerBlock(BlockFluid block) {
 		//block.setRegistryName(name);
 		GameRegistry.register(block);
 		GameRegistry.register(new ItemBlock(block), block.getRegistryName());
+		NuclearCraft.proxy.registerFluidBlockRendering(block, block.getName());
+
 		NCUtils.getLogger().info("Registered fluid " + block.getUnlocalizedName().substring(5));
 	}
 }
